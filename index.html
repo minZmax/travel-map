@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PotatoBeak Travel Map</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzjmYoJ9vNBueO_rbGVIeDtifq6rA85Vw"></script>
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 3,
+        center: {lat: 51.509865, lng: -0.118092} // London 중심 좌표
+      });
+
+      var markers = [
+        {lat: 55.9533, lng: -3.1883, title: "Edinburgh", video: "https://youtu.be/your-edinburgh-video"},
+        {lat: 51.3192, lng: 13.5822, title: "Dresden", video: "https://youtu.be/your-dresden-video"},
+        {lat: 33.4996, lng: 126.5312, title: "Jeju", video: "https://youtu.be/your-jeju-video"},
+        {lat: 50.8225, lng: -0.1372, title: "Brighton", video: "https://youtu.be/your-brighton-video"}
+      ];
+
+      markers.forEach(function(markerInfo) {
+        var marker = new google.maps.Marker({
+          position: {lat: markerInfo.lat, lng: markerInfo.lng},
+          map: map,
+          title: markerInfo.title
+        });
+        var infowindow = new google.maps.InfoWindow({
+          content: `<a href="${markerInfo.video}" target="_blank">${markerInfo.title} Video</a>`
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      });
+    }
+  </script>
+</head>
+<body onload="initMap()">
+  <h1>Welcome to PotatoBeak's Travel Map🥔🐦</h1>
+  <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>
